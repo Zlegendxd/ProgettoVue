@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* BASE */
+body {
+  margin: 0;
+  background: #0f0f0f;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  overflow-x: hidden;
+}
+
+/* SFONDO ATMOSFERICO */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(0,255,120,0.15), transparent 60%),
+    radial-gradient(circle at bottom, rgba(0,120,255,0.1), transparent 60%);
+  z-index: -2;
+}
+
+/* PARTICELLE LEGGERI (effetto nebbia) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(#ffffff10 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+/* SCROLL BAR COOL */   
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
+}
