@@ -15,8 +15,8 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at top, rgba(0,255,120,0.15), transparent 60%),
-    radial-gradient(circle at bottom, rgba(0,120,255,0.1), transparent 60%);
+    radial-gradient(circle at top, rgba(0, 255, 120, 0.15), transparent 60%),
+    radial-gradient(circle at bottom, rgba(0, 120, 255, 0.1), transparent 60%);
   z-index: -2;
 }
 
@@ -31,7 +31,7 @@ body::after {
   z-index: -1;
 }
 
-/* SCROLL BAR COOL */   
+/* SCROLL BAR COOL */
 ::-webkit-scrollbar {
   width: 8px;
 }

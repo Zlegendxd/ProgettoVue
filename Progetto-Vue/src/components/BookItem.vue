@@ -2,47 +2,45 @@
 import { ref } from 'vue'
 import BookModal from './BookModal.vue'
 
-defineProps({ book: Object })
+const props = defineProps({
+  book: Object,
+  togglePreferito: Function,
+  èPreferito: Function
+})
 
 const open = ref(false)
+
+const clickPreferito = (e) => {
+  e.stopPropagation()
+  props.togglePreferito(props.book)
+}
 </script>
 
 <template>
   <div>
 
+    <div @click="open = true"
+      class="relative bg-zinc-900 rounded-2xl overflow-hidden cursor-pointer border border-zinc-800 shadow-lg transform transition-all duration-300 hover:scale-110 hover:-translate-y-3 hover:shadow-green-500/30">
 
-    <div
-      @click="open = true"
-      class="
-        bg-gradient-to-b from-amber-700 to-amber-900
-        border-4 border-black
-        p-2
-        cursor-pointer
-        transform
-        transition-all duration-300
-        hover:scale-110
-        hover:-translate-y-4
-        hover:rotate-2
-        shadow-2xl
-      "
-    >
+      <button @click="clickPreferito" class="absolute top-2 right-2 z-20 text-xl transition hover:scale-125">
+        {{ èPreferito(props.book) ? '⭐' : '☆' }}
+      </button>
 
-      <img
-        :src="`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`"
-        class="w-full h-52 object-cover border-2 border-black"
-      />
+      <img :src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`" class="w-full h-56 object-cover" />
 
-      <p class="text-[10px] mt-2 text-yellow-300">
-        {{ book.title }}
-      </p>
+      <div class="absolute bottom-0 p-3 w-full">
+        <p class="text-sm text-white">
+          {{ book.title }}
+        </p>
+
+        <p class="text-[11px] text-gray-300">
+          {{ book.author_name?.[0] || 'Autore sconosciuto' }}
+        </p>
+      </div>
 
     </div>
 
-    <BookModal
-      :book="book"
-      :open="open"
-      @close="open = false"
-    />
+    <BookModal :book="book" :open="open" @close="open = false" />
 
   </div>
 </template>
