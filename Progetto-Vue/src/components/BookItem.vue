@@ -1,4 +1,6 @@
 <script setup>
+//gestione card del libro con animazioni e gestione dei preferiti
+
 import { ref } from 'vue'
 import BookModal from './BookModal.vue'
 

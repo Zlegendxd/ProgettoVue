@@ -1,20 +1,23 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+//gestione della ricerca, visualizzazione dei libri e logica principale
 
+import { ref, onMounted, watch } from 'vue'
+//recupero libri dal api
 import {
   searchBooks,
   getRandomBooks
 } from '../services/openLibrary'
 
 import LibraryShelf from '../components/LibraryShelf.vue'
-
+//variabile reattive
 const books = ref([])
 const search = ref('')
 const loading = ref(false)
 
 const preferiti = ref([])
+//tutti o preferiti 
 const mostraPreferiti = ref(false)
-
+//recupero libri dal localstorage
 onMounted(() => {
   const salvati = localStorage.getItem('preferiti')
   if (salvati) preferiti.value = JSON.parse(salvati)
@@ -28,7 +31,7 @@ const salvaPreferiti = () => {
 
 const togglePreferito = (book) => {
   const esiste = preferiti.value.find(b => b.key === book.key)
-
+//rimuovo
   if (esiste) {
     preferiti.value = preferiti.value.filter(b => b.key !== book.key)
   } else {
@@ -37,20 +40,21 @@ const togglePreferito = (book) => {
 
   salvaPreferiti()
 }
-
+//libro tra preferiti?
 const èPreferito = (book) => {
   return preferiti.value.some(b => b.key === book.key)
 }
-
+//carico libri random
 const loadRandomBooks = async () => {
   loading.value = true
 
   const data = await getRandomBooks()
+  //solo libri copertina
   books.value = data?.filter(b => b.cover_i) || []
 
   loading.value = false
 }
-
+//libri tramite ricerca utente
 const fetchBooks = async () => {
   if (!search.value.trim()) {
     await loadRandomBooks()
@@ -66,13 +70,13 @@ const fetchBooks = async () => {
 
   loading.value = false
 }
-
+//se ricerca viene svuotata carica libri random
 watch(search, async (val) => {
   if (val.trim() === '') {
     await loadRandomBooks()
   }
 })
-
+//restituisco lista di tutti i libri o solo preferiti
 const listaAttuale = () => {
   return mostraPreferiti.value ? preferiti.value : books.value
 }

@@ -1,9 +1,11 @@
 <script setup>
+//visualizzazione dei dettagli del libro
+//definisco i dati
 defineProps({
   book: Object,
   open: Boolean
 })
-
+//dichiaro eventi
 defineEmits(['close'])
 </script>
 
